@@ -1,0 +1,145 @@
+export type Priority = "Highest" | "High" | "Medium" | "Low" | "None";
+
+export type Channel =
+  "TikTok DM" | "TikTok Shop Affiliate Message" | "Email" | "WhatsApp";
+
+export type VideoProgressNormalization = {
+  normalized: string;
+  warning?: string;
+  postedCount?: number;
+  requiredVideos?: number;
+  isOverRequired?: boolean;
+};
+
+export type FollowUpHistoryEntry = {
+  date: string;
+  action:
+    | "Message Sent"
+    | "Creator Replied"
+    | "No Reply"
+    | "Skipped Today"
+    | "Video Posted"
+    | "Completed"
+    | "Failed"
+    | "Archived"
+    | "Restored";
+  channel?: Channel | string;
+  scenario?: string;
+  message?: string;
+  note?: string;
+};
+
+export type TrackingStatus =
+  | "Followed Up"
+  | "Replied"
+  | "Reply Pending"
+  | "No Reply Pending"
+  | "Skipped Today"
+  | "Video Posted"
+  | "Completed"
+  | "Failed"
+  | "";
+
+export type Store = {
+  id: string;
+  name: string;
+};
+
+export type CreatorRow = {
+  id: string;
+  storeId?: string;
+  storeName?: string;
+  campaignId?: string;
+  productId?: string;
+  username: string;
+  profileLink: string;
+  contactMethod: string;
+  product: string;
+  currentStatus: string;
+  sampleShippingStatus: string;
+  sampleDeliveredDate: string;
+  videoProgress: string;
+  videoProgressWarning?: string;
+  firstVideoPostedDate: string;
+  latestVideoPostedDate?: string;
+  lastContactDate: string;
+  lastFollowUpCount: number;
+  notes: string;
+  trackingStatus?: TrackingStatus | string;
+  lastMessageScenario?: string;
+  lastMessageChannel?: Channel | string;
+  lastMessageSentAt?: string;
+  lastHandledDate?: string;
+  nextFollowUpDate?: string;
+  lastCreatorResponse?: string;
+  followUpHistory?: FollowUpHistoryEntry[];
+  archivedAt?: string;
+  archiveReason?: "Completed" | "Failed" | string;
+};
+
+export type Task = CreatorRow & {
+  priority: Priority;
+  priorityRank: number;
+  stageRank: number;
+  triggerReason: string;
+  suggestedAction: string;
+  failedWarnings: string[];
+  needsFollowUp: boolean;
+};
+
+export type Summary = {
+  totalCreators: number;
+  needsFollowUp: number;
+  highest: number;
+  high: number;
+  medium: number;
+  low: number;
+  failedWarnings: number;
+};
+
+export type UrgencyLevel = "极高" | "高" | "中" | "低" | "归档";
+
+export type CommunicationAction =
+  | "未合作邀约"
+  | "样品运输中，提前沟通拍摄要求"
+  | "样品在路上，提醒达人提前规划拍摄内容"
+  | "提醒达人注意签收并准备拍摄"
+  | "确认样品是否收到"
+  | "确认物流 / 是否签收"
+  | "物流异常确认"
+  | "样品到货催拍"
+  | "剩余视频履约"
+  | "视频修改"
+  | "最后确认"
+  | "回复达人消息"
+  | "合作完成维护"
+  | "合作失败归档";
+
+export type GeneratedMessage = {
+  english: string;
+  chineseExplanation: string;
+  scenario: string;
+  scenarioReason: string;
+  urgencyLevel: UrgencyLevel;
+  communicationAction: CommunicationAction;
+};
+
+export type Campaign = {
+  id: string;
+  productId?: string;
+  storeId?: string;
+  storeName?: string;
+  productName: string;
+  sellingPoints: string;
+  requirements: string[];
+  keyContentPoints: string[];
+  avoidShots: string;
+  videoCount: string;
+  videoLength: string;
+  tagRequirement: string;
+  productLink: string;
+  referenceLinks: string[];
+  defaultMessageSetting: string;
+  notes: string;
+  archivedAt?: string;
+};
