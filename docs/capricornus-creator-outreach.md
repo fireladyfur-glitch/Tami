@@ -96,4 +96,3 @@ The currently connected Gmail account is `fireladyfur@gmail.com`; it is suitable
 - Public code and synthetic tests: this repository.
 - Real creator CRM, email addresses, reply history, and suppression data: local private folder only.
 - Never commit real creator data, Gmail tokens, API keys, cookies, gift-card codes, or shipping information to this public repository.
-
