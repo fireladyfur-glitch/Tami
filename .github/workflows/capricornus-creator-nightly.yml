@@ -40,4 +40,3 @@ jobs:
             echo "Real creator data and email credentials are intentionally not stored in this public repository."
             echo "Discovery, Gmail actions, CRM updates, and the user-facing report run through the private Codex automation."
           } >> "$GITHUB_STEP_SUMMARY"
-
