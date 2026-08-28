@@ -30,4 +30,3 @@ export const CAPRICORNUS_CREATOR_DISCOVERY_RULES = {
   followUpDays: [3, 7, 14],
   bouncePauseThreshold: 0.02,
 } as const;
-
