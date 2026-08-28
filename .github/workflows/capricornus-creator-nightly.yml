@@ -1,0 +1,42 @@
+name: Capricornus creator outreach guardrails
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: capricornus-creator-nightly
+  cancel-in-progress: false
+
+jobs:
+  verify-outreach-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify creator outreach tests
+        run: npm test -- --run src/creatorOutreach.test.ts
+
+      - name: Record operating boundary
+        run: |
+          {
+            echo "## Capricornus creator outreach guardrails"
+            echo ""
+            echo "Nightly verification ran at the 22:00 Asia/Shanghai operating time."
+            echo "Real creator data and email credentials are intentionally not stored in this public repository."
+            echo "Discovery, Gmail actions, CRM updates, and the user-facing report run through the private Codex automation."
+          } >> "$GITHUB_STEP_SUMMARY"
