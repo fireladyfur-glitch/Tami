@@ -151,4 +151,3 @@ describe("ranking and reporting", () => {
     expect(report).toContain("PAUSE");
   });
 });
-
