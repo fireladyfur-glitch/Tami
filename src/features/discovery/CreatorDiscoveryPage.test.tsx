@@ -77,7 +77,7 @@ describe("CreatorDiscoveryPage", () => {
     expect(
       await screen.findByRole("heading", { name: "达人发现中心" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("A Creator")).toBeInTheDocument();
+    expect(await screen.findByText("A Creator")).toBeInTheDocument();
     expect(screen.getByText("B Creator")).toBeInTheDocument();
     expect(screen.getByText("自动建联暂缓")).toBeInTheDocument();
     expect(
