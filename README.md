@@ -19,6 +19,25 @@ Built with ChatGPT + Codex for creator collaboration operations.
 - Local creator workflow and message generation without required API keys
 - Optional DeepSeek integration for creator reply translation and personalized replies
 - Optional OpenAI integration for filming-requirement drafts
+- A private, card-based Capricornus Living creator discovery studio
+
+### Capricornus Living Creator Discovery Studio
+
+The local studio reads the private `Creator_CRM.csv` without copying creator
+contacts into this public repository. It presents A/B/C creator cards, verified
+profile and business-contact sources, follower counts, last-ten-post metrics,
+tags, sender-risk gates, and B-class approval controls.
+
+1. Copy `.env.creator.example` to `.env.creator.local`.
+2. Set `CREATOR_CRM_PATH` to the private CRM file.
+3. Run `npm run creator:studio`.
+4. Open `http://localhost:5173/#discovery`.
+
+The companion service binds to `127.0.0.1`, allows only the local Vite origin,
+backs up the CRM before an approval change, and writes approval decisions
+atomically. A-class outreach is only displayed as ready when the verified brand
+sender and public-business-contact gates pass. Never set a sender gate to ready
+solely because a different account is open in a browser tab.
 
 ---
 

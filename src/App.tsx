@@ -71,6 +71,7 @@ import type {
   CampaignStoreCleanupView,
 } from "./features/campaigns/campaignSettingsTypes";
 import { DashboardPage } from "./features/dashboard/DashboardPage";
+import { CreatorDiscoveryPage } from "./features/discovery/CreatorDiscoveryPage";
 import { SettingsPage } from "./features/settings/SettingsPage";
 import { exitDemoModeUrl, isDemoMode } from "./demoMode";
 import type {
@@ -109,6 +110,7 @@ const creatorStatuses = [
 type CreatorStatus = (typeof creatorStatuses)[number];
 type ModuleKey =
   | "dashboard"
+  | "discovery"
   | "creators"
   | "templates"
   | "samples"
@@ -191,6 +193,7 @@ type TemplateMessage = {
 
 const navIcons: Record<ModuleKey, string> = {
   dashboard: "⌁",
+  discovery: "◎",
   creators: "◌",
   templates: "✦",
   samples: "◇",
@@ -202,6 +205,7 @@ const navIcons: Record<ModuleKey, string> = {
 
 const navItems: Array<{ key: ModuleKey; label: string; helper: string }> = [
   { key: "dashboard", label: "今日工作台", helper: "产品优先日常跟进" },
+  { key: "discovery", label: "达人发现中心", helper: "A/B/C 评分与建联" },
   { key: "followup", label: "达人跟进中心", helper: "同工作台处理队列" },
   { key: "creators", label: "达人数据库", helper: "搜索、筛选、批量更新" },
   { key: "samples", label: "样品追踪", helper: "物流与到货跟进" },
@@ -718,7 +722,9 @@ function App() {
   const [rows, setRows] = useState<CreatorRow[]>(() =>
     markArrivedSamplesDelivered(loadCreatorRows()),
   );
-  const [activeModule, setActiveModule] = useState<ModuleKey>("dashboard");
+  const [activeModule, setActiveModule] = useState<ModuleKey>(() =>
+    window.location.hash === "#discovery" ? "discovery" : "dashboard",
+  );
   const [fileName, setFileName] = useState("");
   const [error, setError] = useState("");
   const [toast, setToast] = useState<Toast>(null);
@@ -3904,6 +3910,7 @@ function App() {
 
   function renderActiveModule() {
     if (activeModule === "dashboard") return renderDashboard();
+    if (activeModule === "discovery") return <CreatorDiscoveryPage />;
     if (activeModule === "creators") return renderCreatorDatabase();
     if (activeModule === "templates") return renderTemplates();
     if (activeModule === "samples") return renderSamples();
@@ -3917,10 +3924,10 @@ function App() {
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span>TT</span>
+          <span>CL</span>
           <div>
-            <strong>Creator SOP</strong>
-            <small>运营工作台</small>
+            <strong>Creator Studio</strong>
+            <small>Capricornus Living</small>
           </div>
         </div>
         <nav aria-label="主导航">
@@ -3929,7 +3936,11 @@ function App() {
               type="button"
               key={item.key}
               className={activeModule === item.key ? "active" : ""}
-              onClick={() => setActiveModule(item.key)}
+              onClick={() => {
+                window.location.hash =
+                  item.key === "discovery" ? "discovery" : "";
+                setActiveModule(item.key);
+              }}
             >
               <i>{navIcons[item.key]}</i>
               <span>{item.label}</span>
@@ -3952,7 +3963,7 @@ function App() {
             </a>
           </div>
         )}
-        {renderCampaignSelector()}
+        {activeModule !== "discovery" && renderCampaignSelector()}
         {renderActiveModule()}
       </main>
       {toast && (
