@@ -364,4 +364,3 @@ export function buildNightlyReport(input: {
     );
   return lines.join("\n");
 }
-
