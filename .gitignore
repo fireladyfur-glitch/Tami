@@ -4,6 +4,7 @@ dist
 .env
 .env.local
 .env.production
+.env.creator.local
 .vite
 tsconfig.tsbuildinfo
 *.csv

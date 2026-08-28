@@ -62,9 +62,14 @@ describe("operations workbench navigation and dashboard", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    expect(screen.getByText("Creator SOP")).toBeInTheDocument();
+    expect(screen.getByText("Creator Studio")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "今日工作台" }),
+    ).toBeInTheDocument();
+
+    await goTo(user, /达人发现中心/);
+    expect(
+      screen.getByRole("heading", { name: "达人发现中心" }),
     ).toBeInTheDocument();
 
     await goTo(user, /达人数据库/);
